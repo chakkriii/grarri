@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body  ng-app="Note" >
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+<script>
+angular.module('Note', [])
+.controller("myCtrl", ['$scope' , function($scope) {
+    $scope.temp = [];
+    $scope.note ={};
+    $scope.addItem = function () {
+    $scope.temp.push(this.note);
+    $scope.note={};
+  }
+
+   $scope.delete = function (data) {
+  var index = $scope.temp.indexOf(data);
+   $scope.temp.splice(index,1);
+    
+      }
+  }])
+
+.directive("noteApp", function() {
+    return {
+      scope:{
+        data:'='
+      },
+         
+        template : '<p><h1> {{data.title}} </h1> <br> <h3> {{data.data}} <br></h3></p> '
+        
+    };
+});
+   
+
+
+</script>
+
+
+
+
+<div class="container">
+
+
+<div class="row">
+
+
+
+  <div ng-controller="myCtrl">
+    <div class= "col lg-3">
+        <h2 class = "label label-success"> Title</h2><br><input ng-model="note.title"/><br> <br>
+        <h2 class = "label label-success">Note</h2><br><textarea ng-model="note.data" ></textarea>  
+      </div>
+    
+        <button class="btn btn-info" ng-click="addItem()" >Add</button>
+     
+     
+      
+ 
+<ul >
+    <li  ng-repeat="x in temp" > <div class="alert alert-success"> <note-app  data=x> </note-app> <button class="btn btn-danger" ng-click= "delete(data)">delete</button></div> <br>
+  </li>  
+
+   
+  
+  
+    </div>   
+   </div>
+</div>
+
+
+</body>
+</html>
